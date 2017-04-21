@@ -9,9 +9,9 @@
   <url>http://maven.apache.org</url>
   <dependencies>
 	<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>3.7.0</version>
+	<groupId>edu.stanford.nlp</groupId>
+	<artifactId>stanford-corenlp</artifactId>
+	<version>3.7.0</version>
 	</dependency>
 	<dependency>
     <groupId>edu.stanford.nlp</groupId>
@@ -25,5 +25,18 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>1.7.0</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.0</version>
+        <scope>runtime</scope>
+    </dependency>
+    
   </dependencies>
 </project>

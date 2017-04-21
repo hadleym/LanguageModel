@@ -1,0 +1,4 @@
+Document #1: "information retrieval is the most awesome class I ever took."
+Document #2: "the retrieval of private information from your emails is a job that the NSA loves."
+Document #3: "at university of arizona you learn about data science."
+Document #4: "the labrador retriever is a great dog."
