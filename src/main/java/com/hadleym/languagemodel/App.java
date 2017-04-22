@@ -18,6 +18,19 @@ import edu.stanford.nlp.process.DocumentPreprocessor;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.simple.*;
 
+/**
+ * Assignment 4, problem 4
+ * Language Model Implementation
+ * 4/20/2017
+ * 
+ * USAGE: % java App input.txt
+ * The program will parse the documents contained in input.txt.
+ * After the parsing is complete, user is prompted for queries.
+ * Ctrl-C ends the program.
+ *
+ * @author Mark Hadley
+ *
+ */
 public class App {
 	public static final double LAMBDA = .5;
 	public static final boolean DEBUG = false;
@@ -26,7 +39,6 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int collectionTotal = 0;
-		// String query = "information";
 		List<DocumentInfo> documentInfos = new ArrayList<>();
 		List<String> documents = getDocumentsFromFile(FILENAME);
 		for (String doc : documents) {
@@ -34,26 +46,26 @@ public class App {
 			documentInfos.add(di);
 			collectionTotal += di.size;
 		}
-
+		System.out.println("Document parsing completed.");
 		if (DEBUG)
 			System.out.println("Collection Total: " + collectionTotal);
-		// System.out.println("Query: " + query);
 		while (true) {
 			System.out.print("Enter phrase to query (or <ctl-c> to quit):");
 			String input = br.readLine();
-			String[] queryList = parseInput(input);
+			List<String> queryList = parseInput(input);
 			List<DocumentRank> documentRanks = new ArrayList<DocumentRank>();
 			for (DocumentInfo di : documentInfos) {
 				double value = 1;
-				for (int i = 0; i < queryList.length; i++) {
-					int collectionFrequency = getCollectionFrequency(documentInfos, queryList[i]);
-					value *= getDocumentValue(di, collectionFrequency, collectionTotal, queryList[i], LAMBDA);
+				for (int i = 0; i < queryList.size(); i++) {
+					int collectionFrequency = getCollectionFrequency(documentInfos, queryList.get(i));
+					value *= getDocumentValue(di, collectionFrequency, collectionTotal, queryList.get(i), LAMBDA);
 				}
 				documentRanks.add(new DocumentRank(di.name, value));
 			}
 
 			Collections.sort(documentRanks);
-			System.out.println("Sorted ranks");
+			if (DEBUG)
+				System.out.println("Sorted ranks");
 			for (DocumentRank dr : documentRanks) {
 				System.out.println(dr.toString());
 			}
@@ -62,10 +74,14 @@ public class App {
 
 	}
 
-	public static String[] parseInput(String s) {
-		String[] returnStrings = s.split("\\s+");
-
-		return returnStrings;
+	public static List<String> parseInput(String s) {
+		String[] splitStrings = s.split("\\s+");
+		List<String> lemmas = new ArrayList<>();
+		Document doc = new Document(s);
+		for (Sentence sent : doc.sentences()) {
+			lemmas.addAll(sent.lemmas());
+		}
+		return lemmas;
 
 	}
 
