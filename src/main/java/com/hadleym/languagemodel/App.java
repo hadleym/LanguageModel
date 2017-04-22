@@ -53,14 +53,16 @@ public class App {
 			documentInfos.add(di);
 			collectionTotal += di.size;
 		}
+		System.out.println("*********************************************");
 		System.out.println(
-				"\nThis program implements Jelinek-Mercer smoothing with a value of .5 for both document and collection weights");
-		System.out.println("");
+				"This program implements Jelinek-Mercer smoothing with a value of .5 for both document and collection weights");
+		System.out.println("*********************************************");
 		System.out.println("Document parsing completed.");
 		if (DEBUG)
 			System.out.println("Collection Total: " + collectionTotal);
 		while (true) {
-			System.out.print("\nEnter phrase to query (or <ctl-c> to quit):");
+			System.out.println("*********************************************");
+			System.out.print("---> Enter phrase to query (or <ctl-c> to quit):");
 			String input = br.readLine();
 			List<String> queryList = parseInput(input);
 			List<DocumentRank> documentRanks = new ArrayList<DocumentRank>();
