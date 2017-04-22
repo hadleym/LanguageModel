@@ -19,15 +19,15 @@ import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.simple.*;
 
 /**
- * Assignment 4, problem 4
- * Language Model Implementation
- * 4/20/2017
+ * Assignment 4, problem 4 Language Model Implementation 4/20/2017
  * 
- * USAGE: % java App input.txt
- * The program will parse the documents contained in input.txt.
- * After the parsing is complete, user is prompted for queries.
+ * USAGE: % java App input.txt The program will parse the documents contained in
+ * input.txt. After the parsing is complete, user is prompted for queries.
  * Ctrl-C ends the program.
  *
+ * This program implements Jelinek-Mercer smoothing with a value of .5 for both
+ * document and collection weights.
+ * 
  * @author Mark Hadley
  *
  */
@@ -46,11 +46,14 @@ public class App {
 			documentInfos.add(di);
 			collectionTotal += di.size;
 		}
+		System.out.println(
+				"\nThis program implements Jelinek-Mercer smoothing with a value of .5 for both document and collection weights");
+		System.out.println("");
 		System.out.println("Document parsing completed.");
 		if (DEBUG)
 			System.out.println("Collection Total: " + collectionTotal);
 		while (true) {
-			System.out.print("Enter phrase to query (or <ctl-c> to quit):");
+			System.out.print("\nEnter phrase to query (or <ctl-c> to quit):");
 			String input = br.readLine();
 			List<String> queryList = parseInput(input);
 			List<DocumentRank> documentRanks = new ArrayList<DocumentRank>();
