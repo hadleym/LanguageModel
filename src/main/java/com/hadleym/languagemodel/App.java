@@ -1,3 +1,23 @@
+/*
+  Assignment 4, problem 4 Language Model Implementation 
+  4/20/2017 
+
+  Requires file "input.txt" in base directory with documents separated 
+  by newlines and  document name and document body deliminated by the ':' character. 
+  
+  USAGE: 
+  % mvn compile
+  % mvn exec:java 
+  
+  
+  After the parsing is complete, user is prompted for queries.
+  Ctrl-C ends the program.
+ 
+  This program implements Jelinek-Mercer smoothing with a value of .5 for both
+  document and collection weights.
+  
+*/
+
 package com.hadleym.languagemodel;
 
 import java.io.BufferedReader;
@@ -18,19 +38,6 @@ import edu.stanford.nlp.process.DocumentPreprocessor;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.simple.*;
 
-/**
- * Assignment 4, problem 4 Language Model Implementation 4/20/2017
- * 
- * USAGE: % java App input.txt The program will parse the documents contained in
- * input.txt. After the parsing is complete, user is prompted for queries.
- * Ctrl-C ends the program.
- *
- * This program implements Jelinek-Mercer smoothing with a value of .5 for both
- * document and collection weights.
- * 
- * @author Mark Hadley
- *
- */
 public class App {
 	public static final double LAMBDA = .5;
 	public static final boolean DEBUG = false;
@@ -78,7 +85,6 @@ public class App {
 	}
 
 	public static List<String> parseInput(String s) {
-		String[] splitStrings = s.split("\\s+");
 		List<String> lemmas = new ArrayList<>();
 		Document doc = new Document(s);
 		for (Sentence sent : doc.sentences()) {
@@ -120,18 +126,6 @@ public class App {
 		return count;
 	}
 
-	/*
-	 * public static void tokenize(String filename) throws IOException {
-	 * DocumentPreprocessor dp = new DocumentPreprocessor(filename); for
-	 * (List<HasWord> sentence : dp) { System.out.println(sentence); }
-	 * 
-	 * PTBTokenizer<CoreLabel> ptbt = new PTBTokenizer<>(new
-	 * FileReader(filename), new CoreLabelTokenFactory(), ""); while
-	 * (ptbt.hasNext()) { CoreLabel label = ptbt.next();
-	 * System.out.println(label); }
-	 * 
-	 * }
-	 */
 	public static DocumentInfo lemmatize(String line) {
 		String name;
 		HashMap<String, Integer> map = new HashMap<>();
